@@ -1,0 +1,324 @@
+----
+■Java (Eclipse) の場合の手順
+
+	1. 適当なプロジェクト (Java プロジェクト) を用意・作成する。
+
+	2. プロジェクトのプロパティ / ビルドパス / ライブラリ に lib\satellite.jar を追加する。
+
+	3. charlotte.htt.HttServer.perform を呼び出すように実装する。
+
+
+	★	lib\satellite.jar のソースは src\satellite.jar.src.zip にあります。
+		lib\satellite.jar の追加に問題がある場合は、ソースを直接組み込んじゃって下さい。
+
+
+----
+■クラスとメソッド
+
+charlotte.htt.HttServer クラス
+
+	public static synchronized void perform(HttService service) throws Exception
+
+		リクエストを待ちます。
+		待機状態を終えるまでブロックされます。
+		１つの環境で perform メソッドを複数同時に実行することは出来ません。
+			２つ目以降の呼び出しは排他制御に弾かれてすぐに終了します。
+
+
+charlotte.htt.HttService インターフェイス
+
+	public boolean interlude() throws Exception;
+
+		perform メソッド実行中、不定期に呼び出されます。
+		偽を返すと待機状態を終了します。
+		例外を投げると、安全に待機状態を終了し呼び出し側に例外を投げます。
+
+	public HttResponse service(HttRequest req) throws Exception;
+
+		１回のリクエストに対して呼び出されます。
+		リクエスト req に対する応答を返すよう実装して下さい。
+		null を返すか、不正な応答を返すか、例外を投げると、このリクエストの接続を切断します。
+
+		このメソッドは一瞬で (待機することなく) 実行されるよう実装すべきです。
+			ほぼ同時に複数のリクエストがあっても、このメソッドはシングルに実行されます。
+			このメソッド実行中、他のリクエストの処理は待機させられます。
+
+
+charlotte.htt.HttRequest クラス
+
+	public String getClientIPAddress()
+
+		クライアントのIPアドレスを返します。
+		例: "192.168.123.101"
+
+	public String getMethod()
+
+		リクエストのメソッドを返します。
+		例: "GET"
+
+	public String getUrlString()
+
+		リクエストのURLの文字列を返します。
+		例: "http://localhost/abc/index.html"
+
+	public URL getUrl() throws MalformedURLException
+
+		リクエストのURLを返します。
+
+	public String getHTTPVersion()
+
+		リクエストのHTTPバージョンを返します。
+		例: "HTTP/1.1"
+
+	public Map<String, String> getHeaderFields()
+
+		リクエストの全てのヘッダフィールドを返します。
+
+	public File getHeaderPartFile()
+
+		リクエストのヘッダ部分を記述したファイルのパスを返します。
+		このファイルを変更・移動・削除しても構いません。
+		このファイルの場所に新しいファイル・フォルダを作成しないで下さい。
+		perform メソッド終了後にこのファイル及びこのファイルの場所にアクセスしないで下さい。
+
+	public byte[] getHeaderPart()
+
+		リクエストのヘッダ部分を返します。
+
+	public File getBodyPartFile()
+
+		リクエストのボディ部分を記述したファイルのパスを返します。
+		このファイルを変更・移動・削除しても構いません。
+		このファイルの場所に新しいファイル・フォルダを作成しないで下さい。
+		perform メソッド終了後にこのファイル及びこのファイルの場所にアクセスしないで下さい。
+
+	public byte[] getBodyPart()
+
+		リクエストのボディ部分を返します。
+
+
+charlotte.htt.HttResponse インターフェイス
+
+	public String getHTTPVersion() throws Exception;
+
+		HTTPバージョンを返します。
+		特に理由が無ければ "HTTP/1.1" を返すよう実装して下さい。
+
+	public int getStatusCode() throws Exception;
+
+		HTTPステータスコードを返します。
+		例: 200
+
+	public String getReasonPhrase() throws Exception;
+
+		HTTPステータスコードに対応するリーズンフレーズを返します。
+		例: "OK"
+
+	public void writeHeaderFields(Map<String, String> dest) throws Exception;
+
+		応答ヘッダフィールドを得るため１回だけ呼び出されます。
+		エラーが発生すると、呼び出されない場合もあります。
+		destにヘッダフィールドを追加して下さい。
+
+		★以下のヘッダフィールドは自動的に設定されます。(追加しても上書き又は削除されます)
+
+			Transfer-Encoding
+			Content-Length
+			Connection
+
+	public File getBodyPartFile() throws Exception;
+
+		応答ボディ部分のファイルを返します。
+
+		このファイルを変更・移動・削除することはありません。
+		応答を送信し終えるまで何回も読み込みます。
+
+		メモリに入りきらないような巨大なデータを応答する場合に使用して下さい。
+		不要であれば null を返して下さい。
+		null 以外を返した場合 getBodyPart メソッドは無視します。
+
+	public byte[] getBodyPart() throws Exception;
+
+		応答ボディ部分を返します。
+		不要であれば null を返して下さい。
+
+
+----
+■応答クラス (charlotte.htt.HttResponse を継承したクラス)
+
+charlotte.htt.response.HttRes301
+
+	301 Moved Permanently を応答します。
+
+	コンストラクタ
+
+		public HttRes301(String location)
+
+			location ... 転送先URL
+
+
+charlotte.htt.response.HttRes404
+
+	404 Not Found を応答します。
+
+	コンストラクタ
+
+		public HttRes404()
+
+
+charlotte.htt.response.HttResFile
+
+	200 OK を応答し、ファイルを送信します。
+
+	コンストラクタ
+
+		public HttResFile(String file)
+		public HttResFile(String file, String charset)
+
+			file    ... 応答するファイル、Content-Type は拡張子から判断します。
+			charset ... ファイルがテキストの場合、そのキャラクターセットを指定します。不要であれば null を指定して下さい。
+
+
+charlotte.htt.response.HttResFileImage
+
+	200 OK を応答し、バイト列を送信します。
+
+	コンストラクタ
+
+		public HttResFileImage(byte[] fileData, String virPath)
+		public HttResFileImage(byte[] fileData, String virPath, String charset)
+
+			fileData ... 応答するバイト列
+			virPath  ... 応答するバイト列の (架空の) パスを指定します。Content-Type を拡張子から判断します。
+			charset  ... ファイルがテキストの場合、そのキャラクターセットを指定します。不要であれば null を指定して下さい。
+
+
+charlotte.htt.response.HttResHtml
+
+	200 OK を応答し、HTMLを送信します。
+
+	コンストラクタ
+
+		public HttResHtml()
+		public HttResHtml(String htmlText)
+		public HttResHtml(String htmlText, String charset)
+
+			htmlText ... 応答するHTMLの内容
+			charset  ... キャラクターセットを指定します。デフォルトは UTF-8
+
+
+charlotte.htt.response.HttResText
+
+	200 OK を応答し、テキストデータを送信します。
+
+	コンストラクタ
+
+		public HttResText()
+		public HttResText(String text)
+		public HttResText(String text, String charset)
+
+			text    ... 応答するテキストの内容
+			charset ... キャラクターセットを指定します。デフォルトは UTF-8
+
+
+----
+■サンプル
+
+package charlotte_test.htt.test_server;
+
+import javax.swing.JOptionPane;
+
+import charlotte.htt.HttRequest;
+import charlotte.htt.HttResponse;
+import charlotte.htt.HttServer;
+import charlotte.htt.HttService;
+import charlotte.htt.response.HttResHtml;
+
+public class Test01 implements HttService {
+	public static void main(String[] args) {
+		try {
+			final Test01 service = new Test01();
+
+			Thread th = new Thread() {
+				@Override
+				public void run() {
+					try {
+						HttServer.perform(service);
+					}
+					catch(Throwable e) {
+						e.printStackTrace();
+					}
+				}
+			};
+			th.start();
+
+			JOptionPane.showMessageDialog(
+					null,
+					"停止するには「了解(OK)」を押して下さい。",
+					"サーバー実行中です",
+					JOptionPane.INFORMATION_MESSAGE
+					);
+
+			service.dead = true;
+
+			th.join();
+		}
+		catch(Throwable e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean dead;
+
+	@Override
+	public boolean interlude() throws Exception {
+		return dead == false;
+	}
+
+	private StringBuffer _buff;
+
+	@Override
+	public HttResponse service(HttRequest req) throws Exception {
+		_buff = new StringBuffer();
+
+		_buff.append("<html>");
+		_buff.append("<body>");
+		_buff.append("<table border=\"1\">");
+
+		addTr("クライアントのIPアドレス", req.getClientIPAddress());
+		addTr("Method", req.getMethod());
+		addTr("Url", req.getUrl().toString());
+		addTr("HTTP_Version", req.getHTTPVersion());
+
+		for(String headerKey : req.getHeaderFields().keySet()) {
+			addTr("Header_" + headerKey, req.getHeaderFields().get(headerKey));
+		}
+		addTr("Body", toAsciiString(req.getBodyPart()));
+
+		_buff.append("</table>");
+		_buff.append("</body>");
+		_buff.append("</html>");
+
+		return new HttResHtml(_buff.toString());
+	}
+
+	private void addTr(String title, String value) {
+		_buff.append("<tr>");
+		_buff.append("<td>");
+		_buff.append(title);
+		_buff.append("</td>");
+		_buff.append("<td>");
+		_buff.append(value);
+		_buff.append("</td>");
+		_buff.append("</tr>");
+	}
+
+	private static String toAsciiString(byte[] data) {
+		try {
+			return new String(data, "US-ASCII");
+		}
+		catch(Throwable e) {
+			return e.getMessage();
+		}
+	}
+}

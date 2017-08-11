@@ -1,0 +1,307 @@
+----
+■Microsoft Visual C# 2010 Express の場合の手順
+
+	1. 適当なプロジェクト (コンソールアプリケーション) を用意・作成する。
+
+	2. 参照設定を右クリックし、参照の追加から lib\Satellite.dll を追加する。
+
+	3. Charlotte.Htt.HttServer.Perform を呼び出すように実装する。
+
+
+	★	lib\Satellite.dll のソースは src\Satellite.dll.src.zip にあります。
+		lib\Satellite.dll の追加に問題がある場合は、ソースを直接組み込んじゃって下さい。
+
+
+----
+■クラスとメソッド
+
+Charlotte.Htt.HttServer クラス
+
+	public static void Perform(HttService service)
+
+		リクエストを待ちます。
+		待機状態を終えるまでブロックされます。
+		１つの環境で Perform メソッドを複数同時に実行することは出来ません。
+			２つ目以降の呼び出しは排他制御に弾かれてすぐに終了します。
+
+
+Charlotte.Htt.HttService インターフェイス
+
+	bool Interlude();
+
+		Perform メソッド実行中、不定期に呼び出されます。
+		偽を返すと待機状態を終了します。
+		例外を投げると、安全に待機状態を終了し呼び出し側に例外を投げます。
+
+	HttResponse Service(HttRequest req);
+
+		１回のリクエストに対して呼び出されます。
+		リクエスト req に対する応答を返すよう実装して下さい。
+		null を返すか、不正な応答を返すか、例外を投げると、このリクエストの接続を切断します。
+
+		このメソッドは一瞬で (待機することなく) 実行されるよう実装すべきです。
+			ほぼ同時に複数のリクエストがあっても、このメソッドはシングルに実行されます。
+			このメソッド実行中、他のリクエストの処理は待機させられます。
+
+
+Charlotte.Htt.HttRequest クラス
+
+	public string GetClientIPAddress()
+
+		クライアントのIPアドレスを返します。
+		例: "192.168.123.101"
+
+	public string GetMethod()
+
+		リクエストのメソッドを返します。
+		例: "GET"
+
+	public string GetUrlString()
+
+		リクエストのURLの文字列を返します。
+		例: "http://localhost/abc/index.html"
+
+	public Uri GetUrl()
+
+		リクエストのURLを返します。
+
+	public string GetHTTPVersion()
+
+		リクエストのHTTPバージョンを返します。
+		例: "HTTP/1.1"
+
+	public Dictionary<string, string> GetHeaderFields()
+
+		リクエストの全てのヘッダフィールドを返します。
+
+	public string GetHeaderPartFile()
+
+		リクエストのヘッダ部分を記述したファイルのパスを返します。
+		このファイルを変更・移動・削除しても構いません。
+		このファイルの場所に新しいファイル・フォルダを作成しないで下さい。
+		Perform メソッド終了後にこのファイル及びこのファイルの場所にアクセスしないで下さい。
+
+	public byte[] GetHeaderPart()
+
+		リクエストのヘッダ部分を返します。
+
+	public string GetBodyPartFile()
+
+		リクエストのボディ部分を記述したファイルのパスを返します。
+		このファイルを変更・移動・削除しても構いません。
+		このファイルの場所に新しいファイル・フォルダを作成しないで下さい。
+		Perform メソッド終了後にこのファイル及びこのファイルの場所にアクセスしないで下さい。
+
+	public byte[] GetBodyPart()
+
+		リクエストのボディ部分を返します。
+
+
+Charlotte.Htt.HttResponse インターフェイス
+
+	string GetHTTPVersion();
+
+		HTTPバージョンを返します。
+		特に理由が無ければ "HTTP/1.1" を返すよう実装して下さい。
+
+	int GetStatusCode();
+
+		HTTPステータスコードを返します。
+		例: 200
+
+	string GetReasonPhrase();
+
+		HTTPステータスコードに対応するリーズンフレーズを返します。
+		例: "OK"
+
+	void WriteHeaderFields(Dictionary<string, string> dest);
+
+		応答ヘッダフィールドを得るため１回だけ呼び出されます。
+		エラーが発生すると、呼び出されない場合もあります。
+		destにヘッダフィールドを追加して下さい。
+
+		★以下のヘッダフィールドは自動的に設定されます。(追加しても上書き又は削除されます)
+
+			Transfer-Encoding
+			Content-Length
+			Connection
+
+	string GetBodyPartFile();
+
+		応答ボディ部分のファイルを返します。
+
+		このファイルを変更・移動・削除することはありません。
+		応答を送信し終えるまで何回も読み込みます。
+
+		メモリに入りきらないような巨大なデータを応答する場合に使用して下さい。
+		不要であれば null を返して下さい。
+		null 以外を返した場合 GetBodyPart メソッドは無視します。
+
+	byte[] GetBodyPart();
+
+		応答ボディ部分を返します。
+		不要であれば null を返して下さい。
+
+
+----
+■応答クラス (Charlotte.Htt.HttResponse を継承したクラス)
+
+Charlotte.Htt.Response.HttRes301
+
+	301 Moved Permanently を応答します。
+
+	コンストラクタ
+
+		public HttRes301(string location)
+
+			location ... 転送先URL
+
+
+Charlotte.Htt.Response.HttRes404
+
+	404 Not Found を応答します。
+
+	コンストラクタ
+
+		public HttRes404()
+
+
+Charlotte.Htt.Response.HttResFile
+
+	200 OK を応答し、ファイルを送信します。
+
+	コンストラクタ
+
+		public HttResFile(string file)
+		public HttResFile(string file, Encoding encoding)
+
+			file     ... 応答するファイル、Content-Type は拡張子から判断します。
+			encoding ... ファイルがテキストの場合、そのエンコーディングを指定します。不要であれば null を指定して下さい。
+
+
+Charlotte.Htt.Response.HttResFileImage
+
+	200 OK を応答し、バイト列を送信します。
+
+	コンストラクタ
+
+		public HttResFileImage(byte[] fileData, string virPath)
+		public HttResFileImage(byte[] fileData, string virPath, Encoding encoding)
+
+			fileData ... 応答するバイト列
+			virPath  ... 応答するバイト列の (架空の) パスを指定します。Content-Type を拡張子から判断します。
+			encoding ... ファイルがテキストの場合、そのエンコーディングを指定します。不要であれば null を指定して下さい。
+
+
+Charlotte.Htt.Response.HttResHtml
+
+	200 OK を応答し、HTMLを送信します。
+
+	コンストラクタ
+
+		public HttResHtml()
+		public HttResHtml(String htmlText)
+		public HttResHtml(String htmlText, Encoding encoding)
+
+			htmlText ... 応答するHTMLの内容
+			encoding ... エンコーディングを指定します。デフォルトは UTF-8
+
+
+Charlotte.Htt.Response.HttResText
+
+	200 OK を応答し、テキストデータを送信します。
+
+	コンストラクタ
+
+		public HttResText()
+		public HttResText(String text)
+		public HttResText(String text, Encoding encoding)
+
+			text     ... 応答するテキストの内容
+			encoding ... エンコーディングを指定します。デフォルトは UTF-8
+
+
+----
+■サンプル
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Charlotte.Htt;
+using Charlotte.Htt.Response;
+
+namespace HTT_RPC_Test01
+{
+	/// <summary>
+	/// これは「コンソール アプリケーション」です。
+	/// エスケープキーを押すと終了します。
+	/// </summary>
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			HttServer.Perform(new Test01Service());
+		}
+
+		private class Test01Service : HttService
+		{
+			public bool Interlude()
+			{
+				return Console.KeyAvailable == false || Console.ReadKey().KeyChar != (char)27;
+			}
+
+			private StringBuilder _buff;
+
+			public HttResponse Service(HttRequest req)
+			{
+				_buff = new StringBuilder();
+
+				_buff.Append("<html>");
+				_buff.Append("<body>");
+				_buff.Append("<table border=\"1\">");
+
+				AddTr("クライアントのIPアドレス", req.GetClientIPAddress());
+				AddTr("Method", req.GetMethod());
+				AddTr("Url", req.GetUrl().ToString());
+				AddTr("HTTP_Version", req.GetHTTPVersion());
+
+				foreach (string headerKey in req.GetHeaderFields().Keys)
+				{
+					AddTr("Header_" + headerKey, req.GetHeaderFields()[headerKey]);
+				}
+				AddTr("Body", ToAsciiString(req.GetBodyPart()));
+
+				_buff.Append("</table>");
+				_buff.Append("</body>");
+				_buff.Append("</html>");
+
+				return new HttResHtml(_buff.ToString());
+			}
+
+			private void AddTr(string title, string value)
+			{
+				_buff.Append("<tr>");
+				_buff.Append("<td>");
+				_buff.Append(title);
+				_buff.Append("</td>");
+				_buff.Append("<td>");
+				_buff.Append(value);
+				_buff.Append("</td>");
+				_buff.Append("</tr>");
+			}
+
+			private static string ToAsciiString(byte[] data)
+			{
+				try
+				{
+					return Encoding.ASCII.GetString(data);
+				}
+				catch (Exception e)
+				{
+					return e.Message;
+				}
+			}
+		}
+	}
+}

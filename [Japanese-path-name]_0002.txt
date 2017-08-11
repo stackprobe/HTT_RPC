@@ -1,0 +1,12 @@
+----
+以下の外部ファイルをリリース物に含める
+
+	..\HTT\HTT\Release\HTT.exe
+	..\HTT\doc\HTT.conf
+
+	..\..\Main2\Satellite\Satellite\bin\Release\Satellite.dll
+
+	C:\pleiades\workspace\Test02\bin\charlotte\flowertact
+	C:\pleiades\workspace\Test02\bin\charlotte\htt
+	C:\pleiades\workspace\Test02\bin\charlotte\satellite
+	C:\pleiades\workspace\Test02\bin\charlotte\tools

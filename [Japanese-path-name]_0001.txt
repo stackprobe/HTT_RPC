@@ -1,0 +1,18 @@
+ビルド手順
+	Factory
+		cx ***
+	Test02
+		/bat/copy_win_api_tools.bat
+		リフレッシュ
+		クリーン (自動的にビルド)
+	Satellite
+		qq
+		リビルド
+	HTT\HTT.sln
+		qq
+		リビルド
+	HTT_RPC
+		qq
+		cx **
+		WHTTR.sln リビルド
+	_Release.bat
