@@ -19,5 +19,5 @@ http://stackprobe.dip.jp/HTT_RPC
 マニュアル
 ----------
 
-TODO*
+https://github.com/stackprobe/HTT_RPC/blob/master/doc/Readme.txt
 
