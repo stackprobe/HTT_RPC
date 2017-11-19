@@ -20,7 +20,7 @@ COPY /B C:\Factory\Resource\JIS0208.txt out
 
 C:\Factory\Tools\xcp.exe doc out
 
-COPY /B ..\..\Main2\Satellite\Satellite\bin\Release\Satellite.dll out\lib
+COPY /B ..\..\Main2\Satellite\Satellite\Satellite\bin\Release\Satellite.dll out\lib
 
 rem ---- satellite.jar ----
 
@@ -37,9 +37,9 @@ C:\Factory\Tools\RDMD.exe /RD out\lib\1
 
 rem ---- src ----
 
-C:\Factory\Tools\zcp.exe C:\Dev\Main2\Satellite\Satellite\Flowertact out\src\1\Flowertact
-C:\Factory\Tools\zcp.exe C:\Dev\Main2\Satellite\Satellite\Htt        out\src\1\Htt
-C:\Factory\Tools\zcp.exe C:\Dev\Main2\Satellite\Satellite\Satellite  out\src\1\Satellite
+C:\Factory\Tools\zcp.exe C:\Dev\Main2\Satellite\Satellite\Satellite\Flowertact out\src\1\Flowertact
+C:\Factory\Tools\zcp.exe C:\Dev\Main2\Satellite\Satellite\Satellite\Htt        out\src\1\Htt
+C:\Factory\Tools\zcp.exe C:\Dev\Main2\Satellite\Satellite\Satellite\Satellite  out\src\1\Satellite
 
 C:\Factory\SubTools\zip.exe /PK out\src\Satellite.dll.src.zip out\src\1 $
 C:\Factory\Tools\RDMD.exe /RD out\src\1
