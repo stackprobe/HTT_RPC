@@ -184,6 +184,7 @@ static autoList_t *DPH_Values;
 static uint64 DPH_BodySize;
 static int DPH_Chunked;
 static char *DPH_Host;
+static int DPH_Expect100Continue;
 
 static void DPH_ParseLines(void)
 {
@@ -283,6 +284,10 @@ static void DPH_CheckFields(void)
 		{
 			DPH_Host = getLine(DPH_Values, index);
 		}
+		else if(!_stricmp(key, "Expect") && !_stricmp(getLine(DPH_Values, index), "100-continue"))
+		{
+			DPH_Expect100Continue = 1;
+		}
 	}
 	if(!DPH_Host || !*DPH_Host)
 		DPH_Host = "localhost";
@@ -359,6 +364,8 @@ static void DoParseHeader(void)
 
 	if(DPH_Chunked)
 		createFile(CHUNKED_FLAG);
+
+	errorCase(DPH_Expect100Continue); // Expect: 100-continue ”ñ‘Î‰ž
 }
 
 // ---- DoRecvBody ----
