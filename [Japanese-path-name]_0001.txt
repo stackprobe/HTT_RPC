@@ -2,7 +2,7 @@
 	Factory
 		cx ***
 	Test02
-		/src/bat/copy_win_api_tools.bat
+		/src/_bat/copy_win_api_tools.bat
 		リフレッシュ
 		クリーン (自動的にビルド)
 	Satellite
