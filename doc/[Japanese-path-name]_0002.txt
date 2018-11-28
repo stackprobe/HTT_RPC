@@ -322,3 +322,10 @@ public class Test01 implements HttService {
 		}
 	}
 }
+
+
+----
+¡‚»‚Ì‘¼‚ÌƒTƒ“ƒvƒ‹
+
+https://github.com/stackprobe/Java/tree/master/charlotte_test/htt/test_server
+
