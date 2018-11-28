@@ -108,7 +108,7 @@ static char *ReadToCRLF_IgnoreTopCr(FILE *fp)
 static char *Block2Line(autoBlock_t *block)
 {
 	addByte(block, '\0');
-	return b(block);
+	return b_(block);
 }
 static void CheckHttServerRunning(int stoppedAndError)
 {
@@ -310,10 +310,10 @@ static void DoParseHeader(void)
 			termination(0);
 		}
 		if(
-			b(recvData)[rPos + 0] == '\r' &&
-			b(recvData)[rPos + 1] == '\n' &&
-			b(recvData)[rPos + 2] == '\r' &&
-			b(recvData)[rPos + 3] == '\n'
+			b_(recvData)[rPos + 0] == '\r' &&
+			b_(recvData)[rPos + 1] == '\n' &&
+			b_(recvData)[rPos + 2] == '\r' &&
+			b_(recvData)[rPos + 3] == '\n'
 			)
 			break;
 	}
