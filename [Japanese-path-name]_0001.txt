@@ -5,14 +5,13 @@
 		/src/_bat/copy_win_api_tools.bat
 		リフレッシュ
 		クリーン (自動的にビルド)
-	Satellite
+	Main2\Satellite
 		qq
-		リビルド
-	HTT\HTT.sln
+		cx **
+	HTT
 		qq
-		リビルド
+		cx **
 	HTT_RPC
 		qq
 		cx **
-		WHTTR.sln リビルド
 	_Release.bat

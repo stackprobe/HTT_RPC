@@ -365,7 +365,8 @@ static void DoParseHeader(void)
 	if(DPH_Chunked)
 		createFile(CHUNKED_FLAG);
 
-	errorCase(DPH_Expect100Continue); // Expect: 100-continue ”ñ‘Î‰ž
+	if(DPH_Expect100Continue)
+		addLine2FileNoRet_b(SEND_FILE, "HTTP/1.1 100 Continue\r\n\r\n");
 }
 
 // ---- DoRecvBody ----
