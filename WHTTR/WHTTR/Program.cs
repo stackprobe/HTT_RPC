@@ -60,6 +60,7 @@ namespace WHTTR
 		}
 
 		public const string APP_TITLE = "HTT_RPC";
+		public const string ERROR_DLG_TITLE = APP_TITLE + " / Error";
 
 		private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
 		{
@@ -67,7 +68,7 @@ namespace WHTTR
 			{
 				MessageBox.Show(
 					"[Application_ThreadException]\n" + e.Exception,
-					APP_TITLE + " / エラー",
+					ERROR_DLG_TITLE,
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error
 					);
@@ -84,7 +85,7 @@ namespace WHTTR
 			{
 				MessageBox.Show(
 					"[CurrentDomain_UnhandledException]\n" + e.ExceptionObject,
-					APP_TITLE + " / エラー",
+					ERROR_DLG_TITLE,
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error
 					);
@@ -109,7 +110,7 @@ namespace WHTTR
 			{
 				MessageBox.Show(
 					"Shift_JIS に変換出来ない文字を含むパスからは実行できません。",
-					APP_TITLE + " / エラー",
+					ERROR_DLG_TITLE,
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error
 					);
@@ -120,7 +121,7 @@ namespace WHTTR
 			{
 				MessageBox.Show(
 					"ネットワークフォルダからは実行できません。",
-					APP_TITLE + " / エラー",
+					ERROR_DLG_TITLE,
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error
 					);

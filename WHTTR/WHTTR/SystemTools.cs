@@ -26,7 +26,7 @@ namespace WHTTR
 			{
 				MessageBox.Show(
 					"" + e,
-					Program.APP_TITLE + " / エラー",
+					Program.ERROR_DLG_TITLE,
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error
 					);
