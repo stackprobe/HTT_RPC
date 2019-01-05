@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace WHTTR
 {
@@ -33,6 +33,40 @@ namespace WHTTR
 			}
 			catch
 			{ }
+		}
+
+		public static void AntiWindowsDefenderSmartScreen()
+		{
+			WriteLog("awdss_1");
+
+			if (Gnd.Sd.Is初回起動())
+			{
+				WriteLog("awdss_2");
+
+				foreach (string exeFile in Directory.GetFiles(BootTools.SelfDir, "*.exe", SearchOption.AllDirectories))
+				{
+					try
+					{
+						WriteLog("awdss_exeFile: " + exeFile);
+
+						if (exeFile.ToLower() == BootTools.SelfFile.ToLower())
+						{
+							WriteLog("awdss_self_noop");
+						}
+						else
+						{
+							byte[] exeData = File.ReadAllBytes(exeFile);
+							File.Delete(exeFile);
+							File.WriteAllBytes(exeFile, exeData);
+						}
+						WriteLog("awdss_OK");
+					}
+					catch
+					{ }
+				}
+				WriteLog("awdss_3");
+			}
+			WriteLog("awdss_4");
 		}
 
 		public static void WriteLog(string line)

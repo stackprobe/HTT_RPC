@@ -43,6 +43,8 @@ namespace WHTTR
 
 				File.Delete(SystemTools.LOG_FILE);
 
+				SystemTools.AntiWindowsDefenderSmartScreen();
+
 				// HTT.exe ゾンビ対策は HTTProc.ctor でやってる。
 
 				// orig >
@@ -52,6 +54,8 @@ namespace WHTTR
 				Application.Run(new MainWin());
 
 				// < orig
+
+				Gnd.Sd.DoSave();
 
 				GlobalProcMtx.Release();
 				procMutex.ReleaseMutex();
