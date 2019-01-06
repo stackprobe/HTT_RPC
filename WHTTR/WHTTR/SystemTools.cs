@@ -61,8 +61,10 @@ namespace WHTTR
 						}
 						WriteLog("awdss_OK");
 					}
-					catch
-					{ }
+					catch (Exception e)
+					{
+						WriteLog("" + e);
+					}
 				}
 				WriteLog("awdss_3");
 			}
