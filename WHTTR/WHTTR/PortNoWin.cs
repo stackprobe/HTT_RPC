@@ -25,6 +25,8 @@ namespace WHTTR
 		{
 			this.PortNo.Text = "" + Gnd.Sd.PortNo;
 			this.PortNo.SelectAll();
+
+			SystemTools.PostShown(this);
 		}
 
 		private void PortNoWin_FormClosed(object sender, FormClosedEventArgs e)

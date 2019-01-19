@@ -26,6 +26,8 @@ namespace WHTTR
 		{
 			this.DoLoad();
 			this.ContentLengthMax.SelectAll();
+
+			SystemTools.PostShown(this);
 		}
 
 		private void ServiceSettingWin_FormClosed(object sender, FormClosedEventArgs e)
