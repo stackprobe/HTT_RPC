@@ -35,6 +35,8 @@ namespace WHTTR
 			{ }
 		}
 
+		// sync > @ AntiWindowsDefenderSmartScreen
+
 		public static void AntiWindowsDefenderSmartScreen()
 		{
 			WriteLog("awdss_1");
@@ -70,6 +72,8 @@ namespace WHTTR
 			}
 			WriteLog("awdss_4");
 		}
+
+		// < sync
 
 		public static void WriteLog(string line)
 		{
@@ -107,6 +111,8 @@ namespace WHTTR
 			}
 		}
 
+		// sync > @ PostShown
+
 		public static void PostShown(Form f)
 		{
 			foreach (Control control in f.Controls)
@@ -131,5 +137,7 @@ namespace WHTTR
 				}
 			}
 		}
+
+		// < sync
 	}
 }
