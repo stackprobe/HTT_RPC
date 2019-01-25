@@ -6,6 +6,8 @@ using System.IO;
 
 namespace WHTTR
 {
+	// sync > @ BootTools
+
 	public class BootTools
 	{
 		public static string SelfFile;
@@ -19,4 +21,6 @@ namespace WHTTR
 			Directory.SetCurrentDirectory(SelfDir);
 		}
 	}
+
+	// < sync
 }
