@@ -250,6 +250,7 @@ public class Test01 implements HttService {
 					}
 				}
 			};
+
 			th.start();
 
 			JOptionPane.showMessageDialog(
@@ -266,6 +267,7 @@ public class Test01 implements HttService {
 		catch(Throwable e) {
 			e.printStackTrace();
 		}
+		System.exit(0);
 	}
 
 	public boolean dead;
