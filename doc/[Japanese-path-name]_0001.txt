@@ -241,6 +241,8 @@ namespace HTT_RPC_Test01
 	{
 		static void Main(string[] args)
 		{
+			Console.WriteLine("Press ESCAPE to stop the server.");
+
 			HttServer.Perform(new Test01Service());
 		}
 
