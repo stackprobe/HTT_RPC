@@ -55,7 +55,7 @@
             this.toolStripMenuItem2,
             this.終了ToolStripMenuItem});
 			this.TaskTrayMenu.Name = "TaskTrayMenu";
-			this.TaskTrayMenu.Size = new System.Drawing.Size(113, 76);
+			this.TaskTrayMenu.Size = new System.Drawing.Size(111, 76);
 			// 
 			// 設定ToolStripMenuItem
 			// 
@@ -63,39 +63,39 @@
             this.ポート番号ToolStripMenuItem,
             this.詳細設定ToolStripMenuItem});
 			this.設定ToolStripMenuItem.Name = "設定ToolStripMenuItem";
-			this.設定ToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+			this.設定ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
 			this.設定ToolStripMenuItem.Text = "設定";
 			// 
 			// ポート番号ToolStripMenuItem
 			// 
 			this.ポート番号ToolStripMenuItem.Name = "ポート番号ToolStripMenuItem";
-			this.ポート番号ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+			this.ポート番号ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.ポート番号ToolStripMenuItem.Text = "ポート番号";
 			this.ポート番号ToolStripMenuItem.Click += new System.EventHandler(this.ポート番号ToolStripMenuItem_Click);
 			// 
 			// 詳細設定ToolStripMenuItem
 			// 
 			this.詳細設定ToolStripMenuItem.Name = "詳細設定ToolStripMenuItem";
-			this.詳細設定ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+			this.詳細設定ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.詳細設定ToolStripMenuItem.Text = "詳細設定";
 			this.詳細設定ToolStripMenuItem.Click += new System.EventHandler(this.詳細設定ToolStripMenuItem_Click);
 			// 
 			// 再起動ToolStripMenuItem
 			// 
 			this.再起動ToolStripMenuItem.Name = "再起動ToolStripMenuItem";
-			this.再起動ToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+			this.再起動ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
 			this.再起動ToolStripMenuItem.Text = "再起動";
 			this.再起動ToolStripMenuItem.Click += new System.EventHandler(this.再起動ToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem2
 			// 
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-			this.toolStripMenuItem2.Size = new System.Drawing.Size(109, 6);
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(107, 6);
 			// 
 			// 終了ToolStripMenuItem
 			// 
 			this.終了ToolStripMenuItem.Name = "終了ToolStripMenuItem";
-			this.終了ToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+			this.終了ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
 			this.終了ToolStripMenuItem.Text = "終了";
 			this.終了ToolStripMenuItem.Click += new System.EventHandler(this.終了ToolStripMenuItem_Click);
 			// 
@@ -109,13 +109,15 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(284, 262);
+			this.ClientSize = new System.Drawing.Size(284, 261);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Location = new System.Drawing.Point(-400, -400);
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
 			this.Name = "MainWin";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-			this.Text = "HTT_RPC_FourRoses";
+			this.Text = "HTT_RPC_HiddenMainWin";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWin_FormClosed);
 			this.Load += new System.EventHandler(this.MainWin_Load);
 			this.Shown += new System.EventHandler(this.MainWin_Shown);
