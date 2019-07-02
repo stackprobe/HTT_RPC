@@ -40,7 +40,7 @@
 			// 
 			// PortNo
 			// 
-			this.PortNo.Location = new System.Drawing.Point(106, 27);
+			this.PortNo.Location = new System.Drawing.Point(103, 27);
 			this.PortNo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.PortNo.MaxLength = 5;
 			this.PortNo.Name = "PortNo";
@@ -79,9 +79,9 @@
 			this.label1.AutoSize = true;
 			this.label1.Location = new System.Drawing.Point(12, 30);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(87, 20);
+			this.label1.Size = new System.Drawing.Size(84, 20);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "ポート番号：";
+			this.label1.Text = "ポート番号 :";
 			// 
 			// ErrorProv
 			// 
@@ -97,14 +97,14 @@
 			this.Controls.Add(this.BtnOk);
 			this.Controls.Add(this.PortNo);
 			this.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "PortNoWin";
+			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "HTT_RPC";
+			this.Text = "HTT_RPC / ポート番号";
 			this.TopMost = true;
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PortNoWin_FormClosed);
 			this.Load += new System.EventHandler(this.PortNoWin_Load);

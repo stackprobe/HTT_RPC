@@ -15,6 +15,8 @@ namespace WHTTR
 		public ServiceSettingWin()
 		{
 			InitializeComponent();
+
+			this.MinimumSize = this.Size;
 		}
 
 		private void ServiceSettingWin_Load(object sender, EventArgs e)
@@ -76,7 +78,8 @@ namespace WHTTR
 			}
 			catch (Exception e)
 			{
-				this.ErrorProv.SetError(this.ContentLengthMax, e.Message);
+				this.ErrorProv.SetError(this.ContentLengthMaxUnit, e.Message);
+				this.MainTab.SelectedIndex = 0;
 				return false;
 			}
 
@@ -94,6 +97,7 @@ namespace WHTTR
 			catch (Exception e)
 			{
 				this.ErrorProv.SetError(this.WaitResponseMillis, e.Message);
+				this.MainTab.SelectedIndex = 1;
 				return false;
 			}
 
@@ -111,6 +115,7 @@ namespace WHTTR
 			catch (Exception e)
 			{
 				this.ErrorProv.SetError(this.WaitResponseTimeoutSec, e.Message);
+				this.MainTab.SelectedIndex = 1;
 				return false;
 			}
 
@@ -156,6 +161,10 @@ namespace WHTTR
 		private void BtnDefault_Click(object sender, EventArgs e)
 		{
 			this.ContentLengthMax.Text = "" + 20000000;
+		}
+
+		private void Btn拡張のDefault_Click(object sender, EventArgs e)
+		{
 			this.WaitResponseMillis.Text = "" + 300;
 			this.WaitResponseTimeoutSec.Text = "" + 60;
 			this.KillWinAPIToolsZombies.Checked = false;

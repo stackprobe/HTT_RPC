@@ -14,6 +14,8 @@ namespace WHTTR
 		public PortNoWin()
 		{
 			InitializeComponent();
+
+			this.MinimumSize = this.Size;
 		}
 
 		private void PortNoWin_Load(object sender, EventArgs e)
