@@ -1,10 +1,10 @@
-ƒrƒ‹ƒhè‡
+ãƒ“ãƒ«ãƒ‰æ‰‹é †
 	Factory
 		cx ***
 	Test02
 		/src/_bat/copy_win_api_tools.bat
-		ƒŠƒtƒŒƒbƒVƒ…
-		ƒNƒŠ[ƒ“ (©“®“I‚Éƒrƒ‹ƒh)
+		ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥
+		ã‚¯ãƒªãƒ¼ãƒ³ (è‡ªå‹•çš„ã«ãƒ“ãƒ«ãƒ‰)
 	Main2\Satellite
 		qq
 		cx **

@@ -1,126 +1,126 @@
 ----
-��Microsoft Visual C# 2010 Express �̏ꍇ�̎菇
+■Microsoft Visual C# 2010 Express の場合の手順
 
-	1. �K���ȃv���W�F�N�g (�R���\�[���A�v���P�[�V����) ��p�ӁE�쐬����B
+	1. 適当なプロジェクト (コンソールアプリケーション) を用意・作成する。
 
-	2. �Q�Ɛݒ���E�N���b�N���A�Q�Ƃ̒ǉ����� lib\Satellite.dll ��ǉ�����B
+	2. 参照設定を右クリックし、参照の追加から lib\Satellite.dll を追加する。
 
-	3. Charlotte.Htt.HttServer.Perform ���Ăяo���悤�Ɏ�������B
+	3. Charlotte.Htt.HttServer.Perform を呼び出すように実装する。
 
 
-	��	lib\Satellite.dll �̃\�[�X�� src\Satellite.dll.src.zip �ɂ���܂��B
-		lib\Satellite.dll �̒ǉ��ɖ�肪����ꍇ�́A�\�[�X�𒼐ڑg�ݍ��񂶂���ĉ������B
+	★	lib\Satellite.dll のソースは src\Satellite.dll.src.zip にあります。
+		lib\Satellite.dll の追加に問題がある場合は、ソースを直接組み込んじゃって下さい。
 
 
 ----
-���N���X�ƃ��\�b�h
+■クラスとメソッド
 
-Charlotte.Htt.HttServer �N���X
+Charlotte.Htt.HttServer クラス
 
 	public static void Perform(HttService service)
 
-		���N�G�X�g��҂��܂��B
-		�ҋ@��Ԃ��I����܂Ńu���b�N����܂��B
-		�P�̊��� Perform ���\�b�h�𕡐������Ɏ��s���邱�Ƃ͏o���܂���B
-			�Q�ڈȍ~�̌Ăяo���͔r������ɒe����Ă����ɏI�����܂��B
+		リクエストを待ちます。
+		待機状態を終えるまでブロックされます。
+		１つの環境で Perform メソッドを複数同時に実行することは出来ません。
+			２つ目以降の呼び出しは排他制御に弾かれてすぐに終了します。
 
 
-Charlotte.Htt.HttService �C���^�[�t�F�C�X
+Charlotte.Htt.HttService インターフェイス
 
 	bool Interlude();
 
-		Perform ���\�b�h���s���A�s����ɌĂяo����܂��B
-		�U��Ԃ��Ƒҋ@��Ԃ��I�����܂��B
-		��O�𓊂���ƁA���S�ɑҋ@��Ԃ��I�����Ăяo�����ɗ�O�𓊂��܂��B
+		Perform メソッド実行中、不定期に呼び出されます。
+		偽を返すと待機状態を終了します。
+		例外を投げると、安全に待機状態を終了し呼び出し側に例外を投げます。
 
 	HttResponse Service(HttRequest req);
 
-		�P��̃��N�G�X�g�ɑ΂��ČĂяo����܂��B
-		���N�G�X�g req �ɑ΂��鉞����Ԃ��悤�������ĉ������B
-		null ��Ԃ����A�s���ȉ�����Ԃ����A��O�𓊂���ƁA���̃��N�G�X�g�̐ڑ���ؒf���܂��B
+		１回のリクエストに対して呼び出されます。
+		リクエスト req に対する応答を返すよう実装して下さい。
+		null を返すか、不正な応答を返すか、例外を投げると、このリクエストの接続を切断します。
 
-		���̃��\�b�h�͈�u�� (�ҋ@���邱�ƂȂ�) ���s�����悤�������ׂ��ł��B
-			�قړ����ɕ����̃��N�G�X�g�������Ă��A���̃��\�b�h�̓V���O���Ɏ��s����܂��B
-			���̃��\�b�h���s���A���̃��N�G�X�g�̏����͑ҋ@�������܂��B
+		このメソッドは一瞬で (待機することなく) 実行されるよう実装すべきです。
+			ほぼ同時に複数のリクエストがあっても、このメソッドはシングルに実行されます。
+			このメソッド実行中、他のリクエストの処理は待機させられます。
 
 
-Charlotte.Htt.HttRequest �N���X
+Charlotte.Htt.HttRequest クラス
 
 	public string GetClientIPAddress()
 
-		�N���C�A���g��IP�A�h���X��Ԃ��܂��B
-		��: "192.168.123.101"
+		クライアントのIPアドレスを返します。
+		例: "192.168.123.101"
 
 	public string GetMethod()
 
-		���N�G�X�g�̃��\�b�h��Ԃ��܂��B
-		��: "GET"
+		リクエストのメソッドを返します。
+		例: "GET"
 
 	public string GetUrlString()
 
-		���N�G�X�g��URL�̕������Ԃ��܂��B
-		��: "http://localhost/abc/index.html"
+		リクエストのURLの文字列を返します。
+		例: "http://localhost/abc/index.html"
 
 	public Uri GetUrl()
 
-		���N�G�X�g��URL��Ԃ��܂��B
+		リクエストのURLを返します。
 
 	public string GetHTTPVersion()
 
-		���N�G�X�g��HTTP�o�[�W������Ԃ��܂��B
-		��: "HTTP/1.1"
+		リクエストのHTTPバージョンを返します。
+		例: "HTTP/1.1"
 
 	public Dictionary<string, string> GetHeaderFields()
 
-		���N�G�X�g�̑S�Ẵw�b�_�t�B�[���h��Ԃ��܂��B
+		リクエストの全てのヘッダフィールドを返します。
 
 	public string GetHeaderPartFile()
 
-		���N�G�X�g�̃w�b�_�������L�q�����t�@�C���̃p�X��Ԃ��܂��B
-		���̃t�@�C����ύX�E�ړ��E�폜���Ă��\���܂���B
-		���̃t�@�C���̏ꏊ�ɐV�����t�@�C���E�t�H���_���쐬���Ȃ��ŉ������B
-		Perform ���\�b�h�I����ɂ��̃t�@�C���y�т��̃t�@�C���̏ꏊ�ɃA�N�Z�X���Ȃ��ŉ������B
+		リクエストのヘッダ部分を記述したファイルのパスを返します。
+		このファイルを変更・移動・削除しても構いません。
+		このファイルの場所に新しいファイル・フォルダを作成しないで下さい。
+		Perform メソッド終了後にこのファイル及びこのファイルの場所にアクセスしないで下さい。
 
 	public byte[] GetHeaderPart()
 
-		���N�G�X�g�̃w�b�_������Ԃ��܂��B
+		リクエストのヘッダ部分を返します。
 
 	public string GetBodyPartFile()
 
-		���N�G�X�g�̃{�f�B�������L�q�����t�@�C���̃p�X��Ԃ��܂��B
-		���̃t�@�C����ύX�E�ړ��E�폜���Ă��\���܂���B
-		���̃t�@�C���̏ꏊ�ɐV�����t�@�C���E�t�H���_���쐬���Ȃ��ŉ������B
-		Perform ���\�b�h�I����ɂ��̃t�@�C���y�т��̃t�@�C���̏ꏊ�ɃA�N�Z�X���Ȃ��ŉ������B
+		リクエストのボディ部分を記述したファイルのパスを返します。
+		このファイルを変更・移動・削除しても構いません。
+		このファイルの場所に新しいファイル・フォルダを作成しないで下さい。
+		Perform メソッド終了後にこのファイル及びこのファイルの場所にアクセスしないで下さい。
 
 	public byte[] GetBodyPart()
 
-		���N�G�X�g�̃{�f�B������Ԃ��܂��B
+		リクエストのボディ部分を返します。
 
 
-Charlotte.Htt.HttResponse �C���^�[�t�F�C�X
+Charlotte.Htt.HttResponse インターフェイス
 
 	string GetHTTPVersion();
 
-		HTTP�o�[�W������Ԃ��܂��B
-		���ɗ��R��������� "HTTP/1.1" ��Ԃ��悤�������ĉ������B
+		HTTPバージョンを返します。
+		特に理由が無ければ "HTTP/1.1" を返すよう実装して下さい。
 
 	int GetStatusCode();
 
-		HTTP�X�e�[�^�X�R�[�h��Ԃ��܂��B
-		��: 200
+		HTTPステータスコードを返します。
+		例: 200
 
 	string GetReasonPhrase();
 
-		HTTP�X�e�[�^�X�R�[�h�ɑΉ����郊�[�Y���t���[�Y��Ԃ��܂��B
-		��: "OK"
+		HTTPステータスコードに対応するリーズンフレーズを返します。
+		例: "OK"
 
 	void WriteHeaderFields(Dictionary<string, string> dest);
 
-		�����w�b�_�t�B�[���h�𓾂邽�߂P�񂾂��Ăяo����܂��B
-		�G���[����������ƁA�Ăяo����Ȃ��ꍇ������܂��B
-		dest�Ƀw�b�_�t�B�[���h��ǉ����ĉ������B
+		応答ヘッダフィールドを得るため１回だけ呼び出されます。
+		エラーが発生すると、呼び出されない場合もあります。
+		destにヘッダフィールドを追加して下さい。
 
-		���ȉ��̃w�b�_�t�B�[���h�͎����I�ɐݒ肳��܂��B(�ǉ����Ă��㏑�����͍폜����܂�)
+		★以下のヘッダフィールドは自動的に設定されます。(追加しても上書き又は削除されます)
 
 			Transfer-Encoding
 			Content-Length
@@ -128,101 +128,101 @@ Charlotte.Htt.HttResponse �C���^�[�t�F�C�X
 
 	string GetBodyPartFile();
 
-		�����{�f�B�����̃t�@�C����Ԃ��܂��B
+		応答ボディ部分のファイルを返します。
 
-		���̃t�@�C����ύX�E�ړ��E�폜���邱�Ƃ͂���܂���B
-		�����𑗐M���I����܂ŉ�����ǂݍ��݂܂��B
+		このファイルを変更・移動・削除することはありません。
+		応答を送信し終えるまで何回も読み込みます。
 
-		�������ɓ��肫��Ȃ��悤�ȋ���ȃf�[�^����������ꍇ�Ɏg�p���ĉ������B
-		�s�v�ł���� null ��Ԃ��ĉ������B
-		null �ȊO��Ԃ����ꍇ GetBodyPart ���\�b�h�͖������܂��B
+		メモリに入りきらないような巨大なデータを応答する場合に使用して下さい。
+		不要であれば null を返して下さい。
+		null 以外を返した場合 GetBodyPart メソッドは無視します。
 
 	byte[] GetBodyPart();
 
-		�����{�f�B������Ԃ��܂��B
-		�s�v�ł���� null ��Ԃ��ĉ������B
+		応答ボディ部分を返します。
+		不要であれば null を返して下さい。
 
 
 ----
-�������N���X (Charlotte.Htt.HttResponse ���p�������N���X)
+■応答クラス (Charlotte.Htt.HttResponse を継承したクラス)
 
 Charlotte.Htt.Response.HttRes301
 
-	301 Moved Permanently ���������܂��B
+	301 Moved Permanently を応答します。
 
-	�R���X�g���N�^
+	コンストラクタ
 
 		public HttRes301(string location)
 
-			location ... �]����URL
+			location ... 転送先URL
 
 
 Charlotte.Htt.Response.HttRes404
 
-	404 Not Found ���������܂��B
+	404 Not Found を応答します。
 
-	�R���X�g���N�^
+	コンストラクタ
 
 		public HttRes404()
 
 
 Charlotte.Htt.Response.HttResFile
 
-	200 OK ���������A�t�@�C���𑗐M���܂��B
+	200 OK を応答し、ファイルを送信します。
 
-	�R���X�g���N�^
+	コンストラクタ
 
 		public HttResFile(string file)
 		public HttResFile(string file, Encoding encoding)
 
-			file     ... ��������t�@�C���AContent-Type �͊g���q���画�f���܂��B
-			encoding ... �t�@�C�����e�L�X�g�̏ꍇ�A���̃G���R�[�f�B���O���w�肵�܂��B�s�v�ł���� null ���w�肵�ĉ������B
+			file     ... 応答するファイル、Content-Type は拡張子から判断します。
+			encoding ... ファイルがテキストの場合、そのエンコーディングを指定します。不要であれば null を指定して下さい。
 
 
 Charlotte.Htt.Response.HttResFileImage
 
-	200 OK ���������A�o�C�g��𑗐M���܂��B
+	200 OK を応答し、バイト列を送信します。
 
-	�R���X�g���N�^
+	コンストラクタ
 
 		public HttResFileImage(byte[] fileData, string virPath)
 		public HttResFileImage(byte[] fileData, string virPath, Encoding encoding)
 
-			fileData ... ��������o�C�g��
-			virPath  ... ��������o�C�g��� (�ˋ��) �p�X���w�肵�܂��BContent-Type ���g���q���画�f���܂��B
-			encoding ... �t�@�C�����e�L�X�g�̏ꍇ�A���̃G���R�[�f�B���O���w�肵�܂��B�s�v�ł���� null ���w�肵�ĉ������B
+			fileData ... 応答するバイト列
+			virPath  ... 応答するバイト列の (架空の) パスを指定します。Content-Type を拡張子から判断します。
+			encoding ... ファイルがテキストの場合、そのエンコーディングを指定します。不要であれば null を指定して下さい。
 
 
 Charlotte.Htt.Response.HttResHtml
 
-	200 OK ���������AHTML�𑗐M���܂��B
+	200 OK を応答し、HTMLを送信します。
 
-	�R���X�g���N�^
+	コンストラクタ
 
 		public HttResHtml()
 		public HttResHtml(String htmlText)
 		public HttResHtml(String htmlText, Encoding encoding)
 
-			htmlText ... ��������HTML�̓��e
-			encoding ... �G���R�[�f�B���O���w�肵�܂��B�f�t�H���g�� UTF-8
+			htmlText ... 応答するHTMLの内容
+			encoding ... エンコーディングを指定します。デフォルトは UTF-8
 
 
 Charlotte.Htt.Response.HttResText
 
-	200 OK ���������A�e�L�X�g�f�[�^�𑗐M���܂��B
+	200 OK を応答し、テキストデータを送信します。
 
-	�R���X�g���N�^
+	コンストラクタ
 
 		public HttResText()
 		public HttResText(String text)
 		public HttResText(String text, Encoding encoding)
 
-			text     ... ��������e�L�X�g�̓��e
-			encoding ... �G���R�[�f�B���O���w�肵�܂��B�f�t�H���g�� UTF-8
+			text     ... 応答するテキストの内容
+			encoding ... エンコーディングを指定します。デフォルトは UTF-8
 
 
 ----
-���T���v��
+■サンプル
 
 using System;
 using System.Collections.Generic;
@@ -234,8 +234,8 @@ using Charlotte.Htt.Response;
 namespace HTT_RPC_Test01
 {
 	/// <summary>
-	/// ����́u�R���\�[�� �A�v���P�[�V�����v�ł��B
-	/// �G�X�P�[�v�L�[�������ƏI�����܂��B
+	/// これは「コンソール アプリケーション」です。
+	/// エスケープキーを押すと終了します。
 	/// </summary>
 	class Program
 	{
@@ -263,7 +263,7 @@ namespace HTT_RPC_Test01
 				_buff.Append("<body>");
 				_buff.Append("<table border=\"1\">");
 
-				AddTr("�N���C�A���g��IP�A�h���X", req.GetClientIPAddress());
+				AddTr("クライアントのIPアドレス", req.GetClientIPAddress());
 				AddTr("Method", req.GetMethod());
 				AddTr("Url", req.GetUrl().ToString());
 				AddTr("HTTP_Version", req.GetHTTPVersion());
@@ -310,7 +310,7 @@ namespace HTT_RPC_Test01
 
 
 ----
-�����̑��̃T���v��
+■その他のサンプル
 
 https://github.com/stackprobe/Satellite/tree/master/Test_Server
 
