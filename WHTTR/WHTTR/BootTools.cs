@@ -10,7 +10,7 @@ namespace WHTTR
 {
 	// sync > @ BootTools
 
-	public class BootTools
+	public static class BootTools
 	{
 		public static string SelfFile;
 		public static string SelfDir;

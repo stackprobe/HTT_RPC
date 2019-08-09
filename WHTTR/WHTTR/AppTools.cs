@@ -7,7 +7,7 @@ using System.IO;
 
 namespace WHTTR
 {
-	public class AppTools
+	public static class AppTools
 	{
 		/// <summary>
 		/// HTT.exe 開始前に実行してね！！！

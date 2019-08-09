@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace WHTTR
 {
-	public class SystemTools
+	public static class SystemTools
 	{
 		public static Queue<string> GetArgq()
 		{

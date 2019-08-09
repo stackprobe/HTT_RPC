@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace WHTTR
 {
-	public class HttServerTools
+	public static class HttServerTools
 	{
 		public const string COMMON_ID = "{7da01163-efa3-4941-a5a6-be0800720d8e}"; // shared_uuid@g
 		public static string W_MUTEX_ID { get { return COMMON_ID + "_w"; } }

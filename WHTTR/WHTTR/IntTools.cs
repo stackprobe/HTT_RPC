@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WHTTR
 {
-	public class IntTools
+	public static class IntTools
 	{
 		public static int ToRange(int value, int minval, int maxval)
 		{

@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace WHTTR
 {
-	public class Gnd
+	public static class Gnd
 	{
 		public const string HTT_APP_UUID = "{6a04a791-bf4b-4bc3-91c5-459321f5b5fb}";
 

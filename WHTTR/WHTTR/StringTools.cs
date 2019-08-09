@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WHTTR
 {
-	public class StringTools
+	public static class StringTools
 	{
 		public static readonly Encoding ENCODING_SJIS = Encoding.GetEncoding(932);
 
