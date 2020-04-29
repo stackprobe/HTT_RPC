@@ -14,9 +14,10 @@
 	HTT_RPC
 		qq
 		cx **
+
 	_Release.bat
 
-	out\HTT_RPC.zip を S:\リリース物へ移動する。
+	out\HTT_RPC.zip を S:\リリース物 へ移動する。
 
 	syncRev
 
