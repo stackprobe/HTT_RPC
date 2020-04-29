@@ -1,6 +1,6 @@
 ビルド手順
 	Factory
-		cx ***
+		cx **
 	Test02
 		/src/_bat/copy_win_api_tools.bat
 		リフレッシュ
@@ -15,3 +15,10 @@
 		qq
 		cx **
 	_Release.bat
+
+	out\HTT_RPC.zip を S:\リリース物へ移動する。
+
+	syncRev
+
+	qrum
+		コメント rel
