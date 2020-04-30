@@ -13,9 +13,9 @@
 
 ■起動方法
 
-	1. WHTTR.exe を実行する。
+	1. WHTTR.exe を起動する。
 
-	2. DemoUploader.exe を実行する。
+	2. DemoUploader.exe を起動する。
 
 	3. http://localhost/ にアクセスする。
 
@@ -71,9 +71,9 @@
 
 ■起動方法
 
-	1. WHTTR.exe を実行する。
+	1. WHTTR.exe を起動する。
 
-	2. EasyBBS.exe を実行する。
+	2. EasyBBS.exe を起動する。
 
 	3. http://localhost/ にアクセスする。
 
@@ -127,9 +127,9 @@
 
 ■起動方法
 
-	1. WHTTR.exe を実行する。
+	1. WHTTR.exe を起動する。
 
-	2. LiteFiler.exe を実行する。
+	2. LiteFiler.exe を起動する。
 
 	3. http://localhost/ にアクセスする。
 
@@ -184,9 +184,9 @@
 
 ■起動方法
 
-	1. WHTTR.exe を実行する。
+	1. WHTTR.exe を起動する。
 
-	2. SimpleHttService.exe を実行する。
+	2. SimpleHttService.exe を起動する。
 
 	3. http://localhost/ にアクセスする。
 
@@ -197,7 +197,7 @@
 
 	1. SimpleHttService.exe を終了する。
 
-		コンソールウィンドウにフォーカスを合わせてエスケープキーを押す。
+		Exit ボタンを押す。
 
 	2. WHTTR.exe を終了する。
 
@@ -217,13 +217,13 @@
 
 		https://github.com/stackprobe/Satellite/tree/master/Test_Server/SimpleHttService
 
-	Test01Service クラス (HttService を継承したクラス)
+	Test01Service 内部クラス (HttService を継承したクラス)
 
-		https://github.com/stackprobe/Satellite/blob/master/Test_Server/SimpleHttService/SimpleHttService/Form1.cs ---> Test01Service
+		https://github.com/stackprobe/Satellite/blob/master/Test_Server/SimpleHttService/SimpleHttService/Form1.cs ---> Test01Service 内部クラス
 
 	HttServer を起動しているところ
 
-		https://github.com/stackprobe/Satellite/blob/master/Test_Server/SimpleHttService/SimpleHttService/Form1.cs ---> Form1_Shown()
+		https://github.com/stackprobe/Satellite/blob/master/Test_Server/SimpleHttService/SimpleHttService/Form1.cs ---> Form1_Shown メソッド
 
 
 
@@ -238,9 +238,9 @@
 
 ■起動方法
 
-	1. WHTTR.exe を実行する。
+	1. WHTTR.exe を起動する。
 
-	2. HTT_RPC_Test01.exe を実行する。
+	2. HTT_RPC_Test01.exe を起動する。
 
 	3. http://localhost/ にアクセスする。
 
@@ -271,13 +271,13 @@
 
 		https://github.com/stackprobe/Satellite/tree/master/Test_Server/Test01
 
-	Test01Service クラス (HttService を継承したクラス)
+	Test01Service 内部クラス (HttService を継承したクラス)
 
-		https://github.com/stackprobe/Satellite/blob/master/Test_Server/Test01/HTT_RPC_Test01/Program.cs ---> Test01Service
+		https://github.com/stackprobe/Satellite/blob/master/Test_Server/Test01/HTT_RPC_Test01/Program.cs ---> Test01Service 内部クラス
 
 	HttServer を起動しているところ
 
-		https://github.com/stackprobe/Satellite/blob/master/Test_Server/Test01/HTT_RPC_Test01/Program.cs ---> Main()
+		https://github.com/stackprobe/Satellite/blob/master/Test_Server/Test01/HTT_RPC_Test01/Program.cs ---> Main メソッド
 
 
 
@@ -292,9 +292,9 @@
 
 ■起動方法
 
-	1. WHTTR.exe を実行する。
+	1. WHTTR.exe を起動する。
 
-	2. TestHtmlJpegPngJsonXml.exe を実行する。
+	2. TestHtmlJpegPngJsonXml.exe を起動する。
 
 	3. http://localhost/ にアクセスする。
 
@@ -316,7 +316,30 @@
 
 	1. 起動方法を実行して、ページを開いて下さい。
 
-		リンクをクリックしてみてね。
+		/test0001.html
+
+			固定 HTML
+			https://github.com/stackprobe/Satellite/blob/master/Test_Server/TestHtmlJpegPngJsonXml/TestHtmlJpegPngJsonXml/Program.cs#L44-L56
+
+		/test0002.jpeg
+
+			固定 JPEG
+			https://github.com/stackprobe/Satellite/blob/master/Test_Server/TestHtmlJpegPngJsonXml/TestHtmlJpegPngJsonXml/Program.cs#L60-L75
+
+		/test0003.png
+
+			アクセスする度に変わる PNG
+			https://github.com/stackprobe/Satellite/blob/master/Test_Server/TestHtmlJpegPngJsonXml/TestHtmlJpegPngJsonXml/Program.cs#L79-L109
+
+		/test0004.json
+
+			固定 JSON
+			https://github.com/stackprobe/Satellite/blob/master/Test_Server/TestHtmlJpegPngJsonXml/TestHtmlJpegPngJsonXml/Program.cs#L113-L122
+
+		/test0005.xml
+
+			固定 XML
+			https://github.com/stackprobe/Satellite/blob/master/Test_Server/TestHtmlJpegPngJsonXml/TestHtmlJpegPngJsonXml/Program.cs#L126-L137
 
 
 ■ソースコード
@@ -325,13 +348,13 @@
 
 		https://github.com/stackprobe/Satellite/tree/master/Test_Server/TestHtmlJpegPngJsonXml
 
-	TestServer0001 クラス (HttService を継承したクラス)
+	TestServer0001 内部クラス (HttService を継承したクラス)
 
-		https://github.com/stackprobe/Satellite/blob/master/Test_Server/TestHtmlJpegPngJsonXml/TestHtmlJpegPngJsonXml/Program.cs ---> TestServer0001
+		https://github.com/stackprobe/Satellite/blob/master/Test_Server/TestHtmlJpegPngJsonXml/TestHtmlJpegPngJsonXml/Program.cs ---> TestServer0001 内部クラス
 
 	HttServer を起動しているところ
 
-		https://github.com/stackprobe/Satellite/blob/master/Test_Server/TestHtmlJpegPngJsonXml/TestHtmlJpegPngJsonXml/Program.cs ---> Main()
+		https://github.com/stackprobe/Satellite/blob/master/Test_Server/TestHtmlJpegPngJsonXml/TestHtmlJpegPngJsonXml/Program.cs ---> Main メソッド
 
 
 
