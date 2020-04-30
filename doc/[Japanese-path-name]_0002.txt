@@ -329,5 +329,13 @@ public class Test01 implements HttService {
 ----
 ■その他のサンプル
 
-https://github.com/stackprobe/Java/tree/master/charlotte_test/htt/test_server
+プログラム
+
+	このアーカイブ内の "サンプルプログラム" フォルダ
+
+	★サンプルプログラムは C# 版です。
+
+ソース
+
+	https://github.com/stackprobe/Java/tree/master/charlotte_test/htt/test_server
 

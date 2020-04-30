@@ -1,4 +1,6 @@
+REN doc\[Japanese-path-name]_0003.txt 取扱説明書.txt
 REN doc\[Japanese-path-name]_0002.txt "プログラムの実装方法 - Java.txt"
 REN doc\[Japanese-path-name]_0001.txt "プログラムの実装方法 - C#.txt"
+REN doc\[Japanese-path-name]_0001 サンプルプログラム
 REN [Japanese-path-name]_0002.txt 外部依存.txt
 REN [Japanese-path-name]_0001.txt ビルド手順.txt

@@ -312,5 +312,11 @@ namespace HTT_RPC_Test01
 ----
 ■その他のサンプル
 
-https://github.com/stackprobe/Satellite/tree/master/Test_Server
+プログラム
+
+	このアーカイブ内の "サンプルプログラム" フォルダ
+
+ソース
+
+	https://github.com/stackprobe/Satellite/tree/master/Test_Server
 

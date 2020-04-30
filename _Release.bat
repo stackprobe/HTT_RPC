@@ -52,6 +52,16 @@ C:\Factory\Tools\zcp.exe C:\pleiades\workspace\Test02\src\charlotte\tools      o
 C:\Factory\SubTools\zip.exe /PK out\src\satellite.jar.src.zip out\src\1 $
 C:\Factory\Tools\RDMD.exe /RD out\src\1
 
+rem ---- サンプルプログラム ----
+
+C:\Factory\Tools\zcp.exe /B C:\Dev\Main2\Satellite\Test_Server\DemoUploader\DemoUploader\bin\Release\DemoUploader.exe                               out\サンプルプログラム
+C:\Factory\Tools\zcp.exe /B C:\Dev\Main2\Satellite\Test_Server\EasyBBS\EasyBBS\bin\Release\EasyBBS.exe                                              out\サンプルプログラム
+C:\Factory\Tools\zcp.exe /B C:\Dev\Main2\Satellite\Test_Server\LiteFiler\LiteFiler\bin\Release\LiteFiler.exe                                        out\サンプルプログラム
+C:\Factory\Tools\zcp.exe /B C:\Dev\Main2\Satellite\Test_Server\SimpleHttService\SimpleHttService\bin\Release\SimpleHttService.exe                   out\サンプルプログラム
+C:\Factory\Tools\zcp.exe /B C:\Dev\Main2\Satellite\Test_Server\Test01\HTT_RPC_Test01\bin\Release\HTT_RPC_Test01.exe                                 out\サンプルプログラム
+C:\Factory\Tools\zcp.exe /B C:\Dev\Main2\Satellite\Test_Server\TestHtmlJpegPngJsonXml\TestHtmlJpegPngJsonXml\bin\Release\TestHtmlJpegPngJsonXml.exe out\サンプルプログラム
+C:\Factory\Tools\zcp.exe /B C:\Dev\Main2\Satellite\Satellite\Satellite\bin\Release\Satellite.dll                                                    out\サンプルプログラム
+
 rem ----
 
 C:\Factory\SubTools\zip.exe /O out HTT_RPC
