@@ -96,6 +96,10 @@ charlotte.htt.HttRequest クラス
 
 		リクエストのボディ部分を返します。
 
+	public long getBodyPartLength()
+
+		リクエストのボディ部分の長さを返します。
+
 
 charlotte.htt.HttResponse インターフェイス
 
