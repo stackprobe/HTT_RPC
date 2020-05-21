@@ -15,3 +15,9 @@ http://stackprobe.dip.jp/HTT_RPC
 
 https://github.com/stackprobe/HTT_RPC/blob/master/doc/Readme.txt
 
+
+関連するリポジトリ
+------------------
+
+https://github.com/stackprobe/HTT
+
