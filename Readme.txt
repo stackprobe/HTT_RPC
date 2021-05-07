@@ -7,7 +7,7 @@ Remote Procedure Call のようにプログラムで応答するウェブサー�
 ビルド済み配布物
 ----------------
 
-http://stackprobe.dip.jp/HTT_RPC
+http://stackprobe.ccsp.mydns.jp/HTT_RPC
 
 
 マニュアル
