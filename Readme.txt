@@ -13,7 +13,7 @@ http://stackprobe.ccsp.mydns.jp/HTT_RPC
 マニュアル
 ----------
 
-https://github.com/stackprobe/HTT_RPC/blob/master/doc/Readme.txt
+https://github.com/stackprobe/HTT_RPC/blob/master/doc/%5BIncludes-Non-ASCII-characters%5D_0003.txt
 
 
 関連するリポジトリ
